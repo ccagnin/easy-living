@@ -1,0 +1,30 @@
+﻿<Properties StartupConfiguration="{A84897B0-FF7E-4ECA-B592-11ABCF9E64B9}|https">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.EasyLiving.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workbench ActiveDocument="EasyLiving.Api/Program.cs">
+    <Files>
+      <File FileName="EasyLiving.Api/Controllers/AuthController.cs" Line="12" Column="1" />
+      <File FileName="EasyLiving.Application/Services/Auth/IAuthService.cs" />
+      <File FileName="EasyLiving.Application/Services/Auth/AuthResult.cs" />
+      <File FileName="EasyLiving.Application/Services/Auth/AuthService.cs" />
+      <File FileName="EasyLiving.Contracts/Auth/AuthResponse.cs" />
+      <File FileName="EasyLiving.Api/Program.cs" Line="18" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="EasyLiving" expanded="True" selected="True">
+            <Node name="EasyLiving.Api" expanded="True">
+              <Node name="Controllers" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

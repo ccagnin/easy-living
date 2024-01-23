@@ -6,6 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
     <ProjectReference Include="..\EasyLiving.Contracts\EasyLiving.Contracts.csproj" />
     <ProjectReference Include="..\EasyLiving.Application\EasyLiving.Application.csproj" />
