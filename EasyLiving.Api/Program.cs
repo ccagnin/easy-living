@@ -1,9 +1,13 @@
-using EasyLiving.Application.Services.Auth;
+using EasyLiving.Application;
+using EasyLiving.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 {
+    builder.Services
+        .AddApplication()
+        .AddInfrastructure();
+
     builder.Services.AddControllers();
-    builder.Services.AddScoped<IAuthService, AuthService>();
 }
 
 
