@@ -1,0 +1,12 @@
+/Users/caroline/Documents/EasyLiving/EasyLiving/EasyLiving.Contracts/bin/Debug/net7.0/EasyLiving.Contracts.deps.json
+/Users/caroline/Documents/EasyLiving/EasyLiving/EasyLiving.Contracts/bin/Debug/net7.0/EasyLiving.Contracts.dll
+/Users/caroline/Documents/EasyLiving/EasyLiving/EasyLiving.Contracts/bin/Debug/net7.0/EasyLiving.Contracts.pdb
+/Users/caroline/Documents/EasyLiving/EasyLiving/EasyLiving.Contracts/obj/Debug/net7.0/EasyLiving.Contracts.csproj.AssemblyReference.cache
+/Users/caroline/Documents/EasyLiving/EasyLiving/EasyLiving.Contracts/obj/Debug/net7.0/EasyLiving.Contracts.GeneratedMSBuildEditorConfig.editorconfig
+/Users/caroline/Documents/EasyLiving/EasyLiving/EasyLiving.Contracts/obj/Debug/net7.0/EasyLiving.Contracts.AssemblyInfoInputs.cache
+/Users/caroline/Documents/EasyLiving/EasyLiving/EasyLiving.Contracts/obj/Debug/net7.0/EasyLiving.Contracts.AssemblyInfo.cs
+/Users/caroline/Documents/EasyLiving/EasyLiving/EasyLiving.Contracts/obj/Debug/net7.0/EasyLiving.Contracts.csproj.CoreCompileInputs.cache
+/Users/caroline/Documents/EasyLiving/EasyLiving/EasyLiving.Contracts/obj/Debug/net7.0/EasyLiving.Contracts.dll
+/Users/caroline/Documents/EasyLiving/EasyLiving/EasyLiving.Contracts/obj/Debug/net7.0/refint/EasyLiving.Contracts.dll
+/Users/caroline/Documents/EasyLiving/EasyLiving/EasyLiving.Contracts/obj/Debug/net7.0/EasyLiving.Contracts.pdb
+/Users/caroline/Documents/EasyLiving/EasyLiving/EasyLiving.Contracts/obj/Debug/net7.0/ref/EasyLiving.Contracts.dll

@@ -1,0 +1,74 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v7.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v7.0": {
+      "EasyLiving.Api/1.0.0": {
+        "dependencies": {
+          "EasyLiving.Application": "1.0.0",
+          "EasyLiving.Contracts": "1.0.0",
+          "EasyLiving.Infrastructure": "1.0.0"
+        },
+        "runtime": {
+          "EasyLiving.Api.dll": {}
+        }
+      },
+      "EasyLiving.Application/1.0.0": {
+        "dependencies": {
+          "EasyLiving.Domain": "1.0.0"
+        },
+        "runtime": {
+          "EasyLiving.Application.dll": {}
+        }
+      },
+      "EasyLiving.Contracts/1.0.0": {
+        "runtime": {
+          "EasyLiving.Contracts.dll": {}
+        }
+      },
+      "EasyLiving.Domain/1.0.0": {
+        "runtime": {
+          "EasyLiving.Domain.dll": {}
+        }
+      },
+      "EasyLiving.Infrastructure/1.0.0": {
+        "dependencies": {
+          "EasyLiving.Application": "1.0.0"
+        },
+        "runtime": {
+          "EasyLiving.Infrastructure.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "EasyLiving.Api/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "EasyLiving.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "EasyLiving.Contracts/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "EasyLiving.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "EasyLiving.Infrastructure/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
