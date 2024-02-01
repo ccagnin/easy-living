@@ -10,7 +10,7 @@ namespace EasyLiving.Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, 
             Microsoft.Extensions.Configuration.ConfigurationManager configuration)
         {
-            services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
+            services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
             services.AddSingleton<IJwtToken, JwtToken>();
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
             return services;
