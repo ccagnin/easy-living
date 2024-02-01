@@ -14,5 +14,24 @@
     <ProjectReference Include="..\EasyLiving.Application\EasyLiving.Application.csproj" />
     <ProjectReference Include="..\EasyLiving.Infrastructure\EasyLiving.Infrastructure.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Filters\**" />
+    <Compile Remove="Middleware\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Filters\**" />
+    <EmbeddedResource Remove="Middleware\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Filters\**" />
+    <Content Remove="Middleware\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Filters\**" />
+    <None Remove="Middleware\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Commom\" />
+  </ItemGroup>
 
 </Project>
