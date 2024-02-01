@@ -1,8 +1,9 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using EasyLiving.Application.Commom.Interfaces.Auth;
 using EasyLiving.Application.Commom.Interfaces.Services;
-using EasyLiving.Application.Common.Interfaces.Auth;
+using EasyLiving.Domain.Entities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -18,7 +19,7 @@ namespace EasyLiving.Infrastructure.Auth
             _dateTimeProvider = dateTimeProvider;
             _jwtSettings = jwtOptions.Value;
         }
-        public string GenerateToken(Guid userId, string email, string role, string secret)
+        public string GenerateToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Secret));
@@ -26,9 +27,9 @@ namespace EasyLiving.Infrastructure.Auth
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
-                    new Claim(ClaimTypes.Email, email),
-                    new Claim(ClaimTypes.Role, role)
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.Role, user.Role)
                 }),
                 Issuer = _jwtSettings.Issuer,
                 Expires = _dateTimeProvider.UtcNow.AddMinutes(_jwtSettings.ExpirationInMinutes),

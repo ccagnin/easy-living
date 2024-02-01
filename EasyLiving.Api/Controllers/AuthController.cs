@@ -20,7 +20,7 @@ namespace EasyLiving.Api.Controllers
         {
             var result = _authService.Register(request.FirstName, request.LastName, request.Email, request.Password);
 
-            var response = new AuthResponse(result.Id, result.FirstName, result.LastName, result.Email, result.Token);
+            var response = new AuthResponse(result.User.Id, result.User.FirstName, result.User.LastName, result.User.Email, result.Token);
             return Ok(response);
         }
 
@@ -29,7 +29,7 @@ namespace EasyLiving.Api.Controllers
         {
             var result = _authService.Login(request.Email, request.Password);
 
-            var response = new AuthResponse(result.Id, result.FirstName, result.LastName, result.Email, result.Token);
+            var response = new AuthResponse(result.User.Id, result.User.FirstName, result.User.LastName, result.User.Email, result.Token);
             return Ok(response);
         }
     }
