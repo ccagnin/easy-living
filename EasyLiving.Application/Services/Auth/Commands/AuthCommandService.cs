@@ -4,14 +4,14 @@ using EasyLiving.Domain.Common.Errors;
 using EasyLiving.Domain.Entities;
 using ErrorOr;
 
-namespace EasyLiving.Application.Services.Auth
+namespace EasyLiving.Application.Services.Auth.Commands
 {
-    public class AuthService : IAuthService
+    public class AuthCommandService : IAuthCommandService
     {
         private readonly IJwtToken _jwtToken;
         private readonly IUserRepository _userRepository;
 
-        public AuthService(IJwtToken jwtToken, IUserRepository userRepository)
+        public AuthCommandService(IJwtToken jwtToken, IUserRepository userRepository)
         {
             _jwtToken = jwtToken;
             _userRepository = userRepository;
@@ -37,22 +37,6 @@ namespace EasyLiving.Application.Services.Auth
             var token = _jwtToken.GenerateToken(user);
 
 
-            return new AuthResult(user, token);
-        }
-
-        public ErrorOr<AuthResult> Login(string email, string password)
-        {
-            if (_userRepository.GetUserByEmail(email) is not User user)
-            {
-                return AuthErrors.Auth.InvalidCredentials;
-            }
-            
-            if (user.Password != password)
-            {
-                return AuthErrors.Auth.InvalidCredentials;
-            }
-            
-            var token = _jwtToken.GenerateToken(user);
             return new AuthResult(user, token);
         }
     }

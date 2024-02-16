@@ -1,4 +1,5 @@
-using EasyLiving.Application.Services.Auth;
+using EasyLiving.Application.Services.Auth.Commands;
+using EasyLiving.Application.Services.Auth.Queries;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EasyLiving.Application
@@ -7,7 +8,8 @@ namespace EasyLiving.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IAuthCommandService, AuthCommandService>();
+            services.AddScoped<IAuthQueryService, AuthQueryService>();
             return services;
         }
     }

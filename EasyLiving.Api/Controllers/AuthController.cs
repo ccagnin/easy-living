@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using EasyLiving.Contracts.Auth;
 using EasyLiving.Application.Services.Auth;
+using EasyLiving.Application.Services.Auth.Commands;
+using EasyLiving.Application.Services.Auth.Queries;
 using EasyLiving.Domain.Common.Errors;
 using ErrorOr;
 
@@ -9,17 +11,19 @@ namespace EasyLiving.Api.Controllers
     [Route("auth")]
     public class AuthController : ApiController
     {
-        private readonly IAuthService _authService;
+        private readonly IAuthCommandService _authCommandServiceService;
+        private readonly IAuthQueryService _authQueryService;
 
-        public AuthController(IAuthService authService)
+        public AuthController(IAuthCommandService authService, IAuthQueryService authQueryService)
         {
-            _authService = authService;
+            _authCommandServiceService = authService;
+            _authQueryService = authQueryService;
         }
 
         [HttpPost("register")]
         public IActionResult Register(RegisterRequest request)
         {
-           ErrorOr<AuthResult> authResult = _authService.Register(
+           ErrorOr<AuthResult> authResult = _authCommandServiceService.Register(
                request.FirstName, 
                request.LastName, 
                request.Email, 
@@ -32,7 +36,7 @@ namespace EasyLiving.Api.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody]LoginRequest request)
         {
-            var authResult = _authService.Login(request.Email, request.Password);
+            var authResult = _authQueryService.Login(request.Email, request.Password);
             
             if(authResult.IsError && authResult.FirstError == AuthErrors.Auth.InvalidCredentials)
             {
