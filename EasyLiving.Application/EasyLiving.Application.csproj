@@ -11,4 +11,8 @@
     <ProjectReference Include="..\EasyLiving.Domain\EasyLiving.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Commom\Errors\" />
+  </ItemGroup>
+
 </Project>

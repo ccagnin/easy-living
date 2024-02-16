@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using EasyLiving.Contracts.Auth;
 using EasyLiving.Application.Services.Auth;
+using EasyLiving.Domain.Common.Errors;
+using ErrorOr;
 
 namespace EasyLiving.Api.Controllers
 {
-    [ApiController]
     [Route("auth")]
-    public class AuthController : ControllerBase
+    public class AuthController : ApiController
     {
         private readonly IAuthService _authService;
 
@@ -16,21 +17,37 @@ namespace EasyLiving.Api.Controllers
         }
 
         [HttpPost("register")]
-        public IActionResult Register([FromBody]RegisterRequest request)
+        public IActionResult Register(RegisterRequest request)
         {
-            var result = _authService.Register(request.FirstName, request.LastName, request.Email, request.Password);
-
-            var response = new AuthResponse(result.User.Id, result.User.FirstName, result.User.LastName, result.User.Email, result.Token);
-            return Ok(response);
+           ErrorOr<AuthResult> authResult = _authService.Register(
+               request.FirstName, 
+               request.LastName, 
+               request.Email, 
+               request.Password);
+           return authResult.Match<IActionResult>(
+               authResult => Ok(MapAuthResult(authResult)),
+               Problem);
         }
 
         [HttpPost("login")]
         public IActionResult Login([FromBody]LoginRequest request)
         {
-            var result = _authService.Login(request.Email, request.Password);
+            var authResult = _authService.Login(request.Email, request.Password);
+            
+            if(authResult.IsError && authResult.FirstError == AuthErrors.Auth.InvalidCredentials)
+            {
+                return Problem(statusCode: StatusCodes.Status401Unauthorized, title: authResult.FirstError.Description);
+            }
+            
 
-            var response = new AuthResponse(result.User.Id, result.User.FirstName, result.User.LastName, result.User.Email, result.Token);
-            return Ok(response);
+            return authResult.Match<IActionResult>(
+                authResult => Ok(MapAuthResult(authResult)),
+                Problem);
+        }
+        
+        private static AuthResponse MapAuthResult(AuthResult result)
+        {
+            return new AuthResponse(result.User.Id, result.User.FirstName, result.User.LastName, result.User.Email, result.Token);
         }
     }
 }

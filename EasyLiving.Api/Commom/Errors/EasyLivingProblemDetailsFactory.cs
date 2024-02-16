@@ -1,4 +1,6 @@
 using System.Diagnostics;
+using EasyLiving.Api.Commom.Http;
+using ErrorOr;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -109,7 +111,10 @@ public class EasyLivingProblemDetailsFactory : ProblemDetailsFactory
 		{
 			problemDetails.Extensions["traceId"] = traceId;
 		}
-		
-		problemDetails.Extensions.Add("customExtension", "customValue");
+
+		if (httpContext?.Items[HttpContextItemKeys.Errors] is List<Error> errors)
+		{
+			problemDetails.Extensions.Add("errorCodes", errors.Select(e => e.Code).ToList());
+		}
 	}
 }

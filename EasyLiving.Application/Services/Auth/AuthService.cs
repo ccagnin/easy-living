@@ -1,6 +1,8 @@
 using EasyLiving.Application.Commom.Interfaces.Auth;
 using EasyLiving.Application.Commom.Interfaces.Persistence;
+using EasyLiving.Domain.Common.Errors;
 using EasyLiving.Domain.Entities;
+using ErrorOr;
 
 namespace EasyLiving.Application.Services.Auth
 {
@@ -14,11 +16,11 @@ namespace EasyLiving.Application.Services.Auth
             _jwtToken = jwtToken;
             _userRepository = userRepository;
         }
-        public AuthResult Register(string firstName, string lastName, string email, string password)
+        public ErrorOr<AuthResult> Register(string firstName, string lastName, string email, string password)
         {
             if (_userRepository.GetUserByEmail(email) is not null)
             {
-                throw new Exception("User with given email already exists.");
+                return Errors.User.DuplicateEmail;
             }
             
             var user = new User
@@ -38,16 +40,16 @@ namespace EasyLiving.Application.Services.Auth
             return new AuthResult(user, token);
         }
 
-        public AuthResult Login(string email, string password)
+        public ErrorOr<AuthResult> Login(string email, string password)
         {
             if (_userRepository.GetUserByEmail(email) is not User user)
             {
-                throw new Exception("User with given email does not exist.");
+                return AuthErrors.Auth.InvalidCredentials;
             }
             
             if (user.Password != password)
             {
-                throw new Exception("Invalid password.");
+                return AuthErrors.Auth.InvalidCredentials;
             }
             
             var token = _jwtToken.GenerateToken(user);

@@ -30,8 +30,5 @@
     <None Remove="Filters\**" />
     <None Remove="Middleware\**" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Commom\" />
-  </ItemGroup>
 
 </Project>
