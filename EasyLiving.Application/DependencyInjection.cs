@@ -1,5 +1,4 @@
-using EasyLiving.Application.Services.Auth.Commands;
-using EasyLiving.Application.Services.Auth.Queries;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EasyLiving.Application
@@ -8,8 +7,7 @@ namespace EasyLiving.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            services.AddScoped<IAuthCommandService, AuthCommandService>();
-            services.AddScoped<IAuthQueryService, AuthQueryService>();
+            services.AddMediatR(typeof(DependencyInjection).Assembly);
             return services;
         }
     }

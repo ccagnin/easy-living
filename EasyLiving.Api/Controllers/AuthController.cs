@@ -1,42 +1,38 @@
+using EasyLiving.Application.Auth.Commands.Register;
+using EasyLiving.Application.Auth.Commom;
+using EasyLiving.Application.Auth.Queries.Login;
 using Microsoft.AspNetCore.Mvc;
 using EasyLiving.Contracts.Auth;
-using EasyLiving.Application.Services.Auth;
-using EasyLiving.Application.Services.Auth.Commands;
-using EasyLiving.Application.Services.Auth.Queries;
 using EasyLiving.Domain.Common.Errors;
 using ErrorOr;
+using MediatR;
 
 namespace EasyLiving.Api.Controllers
 {
     [Route("auth")]
     public class AuthController : ApiController
     {
-        private readonly IAuthCommandService _authCommandServiceService;
-        private readonly IAuthQueryService _authQueryService;
-
-        public AuthController(IAuthCommandService authService, IAuthQueryService authQueryService)
+        private readonly ISender _mediator;
+        
+        public AuthController(ISender mediator)
         {
-            _authCommandServiceService = authService;
-            _authQueryService = authQueryService;
+            _mediator = mediator;
         }
 
         [HttpPost("register")]
-        public IActionResult Register(RegisterRequest request)
+        public async Task<IActionResult> Register(RegisterRequest request)
         {
-           ErrorOr<AuthResult> authResult = _authCommandServiceService.Register(
-               request.FirstName, 
-               request.LastName, 
-               request.Email, 
-               request.Password);
-           return authResult.Match<IActionResult>(
+            var command = new RegisterCommand(request.FirstName, request.LastName, request.Email, request.Password);
+            ErrorOr<AuthResult> authResult = await _mediator.Send(command);
+            return authResult.Match<IActionResult>(
                authResult => Ok(MapAuthResult(authResult)),
                Problem);
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody]LoginRequest request)
+        public async Task<IActionResult> Login([FromBody]LoginRequest request)
         {
-            var authResult = _authQueryService.Login(request.Email, request.Password);
+            var authResult = await _mediator.Send(new LoginQuery(request.Email, request.Password));
             
             if(authResult.IsError && authResult.FirstError == AuthErrors.Auth.InvalidCredentials)
             {
@@ -51,7 +47,7 @@ namespace EasyLiving.Api.Controllers
         
         private static AuthResponse MapAuthResult(AuthResult result)
         {
-            return new AuthResponse(result.User.Id, result.User.FirstName, result.User.LastName, result.User.Email, result.Token);
+            return new AuthResponse(result.user.Id, result.user.FirstName, result.user.LastName, result.user.Email, result.token);
         }
     }
 }
