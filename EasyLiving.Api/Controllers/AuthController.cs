@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using EasyLiving.Contracts.Auth;
 using EasyLiving.Domain.Common.Errors;
 using ErrorOr;
+using MapsterMapper;
 using MediatR;
 
 namespace EasyLiving.Api.Controllers
@@ -13,26 +14,29 @@ namespace EasyLiving.Api.Controllers
     public class AuthController : ApiController
     {
         private readonly ISender _mediator;
+        private readonly Mapper _mapper;
         
-        public AuthController(ISender mediator)
+        public AuthController(ISender mediator, Mapper mapper)
         {
             _mediator = mediator;
+            _mapper = mapper;
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterRequest request)
         {
-            var command = new RegisterCommand(request.FirstName, request.LastName, request.Email, request.Password);
+            var command = _mapper.Map<RegisterCommand>(request);
             ErrorOr<AuthResult> authResult = await _mediator.Send(command);
             return authResult.Match<IActionResult>(
-               authResult => Ok(MapAuthResult(authResult)),
+               authResult => Ok(_mapper.Map<AuthResponse>(authResult)),
                Problem);
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody]LoginRequest request)
         {
-            var authResult = await _mediator.Send(new LoginQuery(request.Email, request.Password));
+            var query = _mapper.Map<LoginQuery>(request);
+            ErrorOr<AuthResult> authResult = await _mediator.Send(query);
             
             if(authResult.IsError && authResult.FirstError == AuthErrors.Auth.InvalidCredentials)
             {
@@ -41,13 +45,9 @@ namespace EasyLiving.Api.Controllers
             
 
             return authResult.Match<IActionResult>(
-                authResult => Ok(MapAuthResult(authResult)),
+                authResult => Ok(_mapper.Map<AuthResponse>(authResult)),
                 Problem);
         }
         
-        private static AuthResponse MapAuthResult(AuthResult result)
-        {
-            return new AuthResponse(result.user.Id, result.user.FirstName, result.user.LastName, result.user.Email, result.token);
-        }
     }
 }

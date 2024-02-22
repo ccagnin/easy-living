@@ -1,16 +1,13 @@
-using EasyLiving.Api.Commom.Errors;
 using EasyLiving.Application;
 using EasyLiving.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
+using EasyLiving.Api;
 
 var builder = WebApplication.CreateBuilder(args);
 {
     builder.Services
         .AddApplication()
-        .AddInfrastructure(builder.Configuration);
-
-    builder.Services.AddControllers();
-    builder.Services.AddSingleton<ProblemDetailsFactory, EasyLivingProblemDetailsFactory>();
+        .AddInfrastructure(builder.Configuration)
+        .AddPresentation();
 }
 
 
